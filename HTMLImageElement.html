@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>HTMLImageElement 原型</title>
+	<script type="text/javascript">
+		//console.log(document.createElement('canvas'));
+		/*
+		//原代码
+		if ('getContext' in document.createElement('canvas')) {
+    HTMLImageElement.prototype.play = function() {
+        if (this.storeCanvas) {
+            // 移除存储的canvas
+            this.storeCanvas.parentElement.removeChild(this.storeCanvas);
+            this.storeCanvas = null;
+            // 透明度还原
+            image.style.opacity = '';
+        }
+        if (this.storeUrl) {
+            this.src = this.storeUrl;    
+        }
+    };
+    HTMLImageElement.prototype.stop = function() {
+        var canvas = document.createElement('canvas');
+        // 尺寸
+        var width = this.width, height = this.height;
+        if (width && height) {
+            // 存储之前的地址
+            if (!this.storeUrl) {
+                this.storeUrl = this.src;
+            }
+            // canvas大小
+            canvas.width = width;
+            canvas.height = height;
+            // 绘制图片帧（第一帧）
+            canvas.getContext('2d').drawImage(this, 0, 0, width, height);
+            // 重置当前图片
+            try {
+                this.src = canvas.toDataURL("image/gif");
+            } catch(e) {
+                // 跨域
+                this.removeAttribute('src');
+                // 载入canvas元素
+                canvas.style.position = 'absolute';
+                // 前面插入图片
+                this.parentElement.insertBefore(canvas, this);
+                // 隐藏原图
+                this.style.opacity = '0';
+                // 存储canvas
+                this.storeCanvas = canvas;
+            }
+        }
+    };
+}
+		
+		
+		
+		*/
+		
+		//使GIF动态图停止播放
+		//设计思路
+		//点击停止 创建一个画布，将GIF图片的第一帧绘画出来
+		//点击开始 删除创建的画布显示GIF图片
+		
+		// 1. 判断是否能够创建画布,并支持getContext() 方法
+		if('getContext' in document.createElement('canvas')){
+			//点击停止，创建画布，绘画图片
+			HTMLImageElement.prototype.stop=function(){
+				var c=document.createElement('canvas'),//创建canvas对象
+				cw=this.width,//对象高度
+				ch=this.height;//对象宽度
+				if(cw && ch){
+					if(!this.storeUrl){this.storeUrl=this.src;}//保存图片原有路径
+					c.width=cw,c.height=ch;//设置画布的宽度和高度
+					c.getContext('2d').drawImage(this, 0, 0, cw, ch);//绘制当前图片
+					try{
+						this.src=c.toDataURL('image/gif');//替换链接
+					}catch(e){
+						//链接替换失败，插入图片
+						this.parentElement.insertBefore(c, this);//在图片对象前插入画布对象
+						this.style.opacity="0";//修改对象的透明度
+						this.storeCanvas = c;//用以判断是修改了图片地址还是插入节点
+					}
+					this.storeMedian = true;//停止
+				}
+			};
+			HTMLImageElement.prototype.play=function(){
+			//点击播放，删除画布或者显示修改链接
+				//判断是否为插入节点
+				if(this.storeCanvas){
+					//删除该节点
+					this.parentElement.removeChild(this.storeCanvas);
+					this.storeCanvas = null;//清除对象
+					this.style.opacity="";//还原透明度
+				}else if(this.storeUrl){
+					this.src=this.storeUrl;
+				}
+				this.storeMedian = false;//播放
+			};
+		}
+		window.onload=function(){
+			var img = document.getElementById('itemimg');
+			img.onclick=function(){
+				console.log(this.storeMedian);
+				if(!this.storeMedian){
+					this.stop();
+				}else{
+					this.play();
+				}
+			}
+		}
+		
+		/**
+		方法优劣
+		优点：可以应用于所有的GIF动态图片，引用简单方便
+		确定：不同浏览器暂停的位置不一样，一般都是GIF图片的第一帧，实现的是图片的停止播放而不是暂停。
+		**/
+	</script>
+	<style class="text/css">
+		.imgbox{width:262px;height:170px;border:1px solid #333;padding:5px;position:relative;}
+		.imgbox img,.imgbox canvas{position:absolute;z-index:auto;}
+	</style>
+</head>
+<body>
+	<div class="imgbox">
+		<img id="itemimg" src="./images/web01.gif"/>
+	</div>
+</body>
+</html>
