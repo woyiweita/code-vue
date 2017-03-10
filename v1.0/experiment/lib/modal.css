@@ -1,0 +1,20 @@
+/* 
+* @Author: CharlesYih
+* @Date:   2017-03-09 17:13:44
+* @Last Modified by:   CharlesYih
+* @Last Modified time: 2017-03-10 14:59:09
+*/
+.modal-mask{position:absolute;top:0;left:0;width:100%;height:100%;z-index:9999;background-color:#000;opacity:0.2;filter:alpha(opacity=20);}
+.modal-box{position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;}
+.modal-box>.modal-load{width:100%;height:100%;background-color:#transparent;background-position:center center;background-repeat:no-repeat;}
+.modal-box.modal-load-box{width:60px;height:24px;z-index:9998;}
+.modal-box.modal-load-box>.modal-load{background-image:url('./images/loading-0.gif');}
+
+.modal-box.modal-load1-box{width:37px;height:37px;z-index:9998;}
+.modal-box.modal-load1-box>.modal-load{background-image:url('./images/loading-1.gif');}
+
+.modal-box.modal-load2-box{width:32px;height:32px;z-index:9998;}
+.modal-box.modal-load2-box>.modal-load{background-image:url('./images/loading-2.gif');}
+
+.modal-box.modal-alert-box{min-width:230px;min-height:66px;}
+.modal-box>.
