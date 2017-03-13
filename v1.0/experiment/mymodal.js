@@ -17,17 +17,43 @@ var modal = {}
         var mask = '<div class="modal-mask"></div>';
         var loadUi = '<div class="modal-box modal-load'+ type +'-box"><div class="modal-load"></div></div>';
         $('body').append(mask).append(loadUi);
+        tool.dom = $('.modal-box');
+        tool.setCloseBtn(['.modal-mask','.moadl-colse','.btn-close']);
     }
 // 提示框
     modal.alert = function(content){
         content = content || 'This is alert!!!';
         var mask = '<div class="modal-mask"></div>';
-        var loadUi = '<div class="modal-box modal-alert-box"><div class="modal-title">信息</div><div class="moadl-content">'+ content +'</div><span class="moadl-colse">&times;</span></div>';
+        var loadUi = '<div class="modal-box modal-borderd modal-alert-box modal-box-shadow modal-border-radius"><div class="modal-title">信息</div><div class="moadl-content">'+ content +'</div><div class="modal-footer"><a class="btn btn-blue btn-close">确定</a></div><span class="moadl-colse">&times;</span></div>';
         $('body').append(mask).append(loadUi);
+        tool.dom = $('.modal-box');
+        tool.position();
     }
 
-
-
+    var tool = {
+        dom : null
+    };
+    
+    tool.position = function(){
+        var dom = this.dom;
+        //console.info(dom);
+        console.info(win.innerHeight);
+        var offsetTop = (win.innerHeight - dom.outerHeight())/2,
+            offsetLeft = (win.innerWidth - dom.outerWidth())/2;
+        dom.css({top:offsetTop,left:offsetLeft});
+    };
+    tool.close = function(){
+        // 遮罩
+        var mask = $('.modal-mask'),
+            dom = this.dom;
+            mask.remove();
+            dom.remove();
+    };
+    tool.setCloseBtn = function(setings){
+        var type = setings && typeof setings === 'object',that = this;
+        $(type?setings.join():setings).on('click.close',function(){
+            that.close();
+        })
+    };
     win.modal = modal;
-
 }(window,jQuery);
