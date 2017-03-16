@@ -30,6 +30,16 @@ var modal = {}
         tool.position();
     }
 
+// 确认框
+    modal.confirm = function(content){
+        content = content || 'This is confirm?';
+        var mask = '<div class="modal-mask"></div>';
+        var loadUi = '<div class="modal-box modal-borderd modal-alert-box modal-box-shadow modal-border-radius"><div class="modal-title">信息</div><div class="moadl-content">'+ content +'</div><div class="modal-footer"><a class="btn btn-blue btn-close">确定</a><a class="btn btn-orange btn-close">取消</a></div><span class="moadl-colse">&times;</span></div>';
+        $('body').append(mask).append(loadUi);
+        tool.dom = $('.modal-box');
+        tool.position();
+    }
+/* 工具 */
     var tool = {
         dom : null
     };
@@ -37,7 +47,7 @@ var modal = {}
     tool.position = function(){
         var dom = this.dom;
         //console.info(dom);
-        console.info(win.innerHeight);
+        //console.info(win.innerHeight);
         var offsetTop = (win.innerHeight - dom.outerHeight())/2,
             offsetLeft = (win.innerWidth - dom.outerWidth())/2;
         dom.css({top:offsetTop,left:offsetLeft});
