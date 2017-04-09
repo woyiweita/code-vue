@@ -2,23 +2,94 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
+        <title>Vue 练习册</title>
+        <style type="text/css">
+            .list{margin:0 -6px;}
+            .list>span{display:inline-block;padding:0 6px;}
+        </style>
     </head>
     <body>
 <div id="vue">
     <p>{{info}}</p>
 </div>
-
-
-
-<script type="text/javascript" src="./dist/vue.min.js"></script>
+<div id="app2">
+    <span v-bind:title="message">查看数据绑定</span>
+</div>
+<div id="app3">
+    <p v-if="seen1">这条是可以看见的</p>
+    <p v-if="seen2">这条是不可以看见的</p>
+</div>
+<div id="app4" class="list">
+    <span v-for="people in peoples">{{people}}</span>
+</div>
+<div id="app5" class="list">
+    <span v-for="people in peoples">{{people['name']}}</span>
+    <span v-for="people in peoples">{{people.name}}</span>
+</div>
+<div id="app6">
+    <p>{{message}}</p>
+    <button v-on:click="reverMes">反转</button>
+</div>
+<script type="text/javascript" src="./dist/vue.js"></script>
 <script type="text/javascript">
-    new Vue({
+//  数据绑定
+    var app = new Vue({
         el:"#vue",
         data:{
             info : "Hello Charles!"
         }
     });
+// 指令
+    var app2 = new Vue({
+        el: '#app2',
+        data:{
+            message: 'data bind'
+        }
+    });
+// 条件判断
+    var app3 = new Vue({
+        el: '#app3',
+        data:{
+            seen1: true,
+            seen2: false
+        }
+    });
+// 循环
+    var app4 = new Vue({
+        el: '#app4',
+        data: {
+            peoples:{
+                name: 'Charles Yih',
+                age: '26',
+                six: '男',
+                weight: '88kg'
+            }
+        }
+    });
+    var app5 = new Vue({
+        el: '#app5',
+        data:{
+            peoples:[
+                {name:'join'},
+                {name:'liy'},
+                {name:'charles'},
+                {name:'choo'}
+            ]
+        }
+    });
 
+// 消息处理
+    var app6 = new Vue({
+        el: '#app6',
+        data:{
+            message: '0123456789'
+        },
+        methods:{
+            reverMes: function(){
+                this.message = this.message.split('').reverse().join('')
+            }
+        }
+    });
 </script>
     </body>
 </html>
