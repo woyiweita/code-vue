@@ -4,7 +4,9 @@
         <meta charset="utf-8">
         <title>Vue 练习册</title>
         <style type="text/css">
-            .list{margin:0 -6px;}
+            div{margin-bottom:12px;}
+            p{margin-top:0;margin-bottom:0;}
+            .list{margin-left:-6px;margin-right:-6px;}
             .list>span{display:inline-block;padding:0 6px;}
         </style>
     </head>
@@ -29,6 +31,35 @@
 <div id="app6">
     <p>{{message}}</p>
     <button v-on:click="reverMes">反转</button>
+</div>
+<div id="app7">
+    <p>{{message}}</p>
+    <p><input type="text" v-model="message" placeholder="输入绑定内容" /></p>
+</div>
+<div id="app8">
+    <p>应用模板输出 10 次 I like vue.js</p>
+    <p class="list">
+        <yih-item v-for="i in 10"></yih-item>
+    </p>
+</div>
+<div id="app9">
+    <p>虽为全局模式，测试证明在构建模板前实例化的对象都不能使用模板组件</p>
+    <p class="list">
+        <yih-item></yih-item>
+    </p>
+</div>
+<div id="app10">
+    <p class="list">
+        <yit-item v-for="people in peoples" v-bind:yit="people"></yit-item>
+    </p>
+</div>
+<div id="app11">
+    <p>
+        输入的内容是：<yis-item v-bind:message='mesag'></yis-item>
+    </p>
+    <p>
+        <input type="text" v-model="mesag" placeholder="输入内容" />
+    </p>
 </div>
 <script type="text/javascript" src="./dist/vue.js"></script>
 <script type="text/javascript">
@@ -90,6 +121,52 @@
             }
         }
     });
+// 表单与数据绑定
+    var app7 = new Vue({
+        el: '#app7',
+        data:{
+            message: 'Hello world!'
+        }
+    });
+// 构建全局模式下的模板，模板名需注意不能出现大写
+    Vue.component('yih-item',{
+        template: '<span>I like vue.js</span>'
+    });
+    var app8 = new Vue({
+        el: '#app8'
+    });
+// 实例化
+    var app9 = new Vue({
+        el: '#app9'
+    });
+// 尝试为组件增加一个自定义属性
+    Vue.component('yit-item',{
+        props: ['yit'], // => 注意点
+        template: '<span>{{yit.name}}</span>'
+    });
+    var app10 = new Vue({
+        el: '#app10',
+        data:{
+            peoples:[
+                {name:'join'},
+                {name:'liy'},
+                {name:'charles'},
+                {name:'choo'}
+            ]
+        }
+    });
+// 自定义模板组件数据绑定
+    Vue.component('yis-item',{
+        props:['message'],
+        template: '<span>{{message}}</span>'
+    });
+    var app11 = new Vue({
+        el: '#app11',
+        data: {
+            mesag: 'I like vue.js'
+        }
+    });
+
 </script>
     </body>
 </html>

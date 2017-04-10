@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Vue 练习册</title>
+        <style type="text/css">
+            .list{margin:0 -6px;}
+            .list>span{display:inline-block;padding:0 6px;}
+        </style>
+    </head>
+    <body>
+<div id="app" class="list">
+    <too-item v-for="n in 5"></too-item>
+</div>
+<div id="app2">
+    <too-item></too-item>
+</div>
+<script type="text/javascript" src="./dist/vue.js"></script>
+<script type="text/javascript">
+// 首先构建一个模板
+Vue.component('too-item',{
+    template: '<span>先试试这是啥</span>'
+});
+// 将 Vue 对象实例化应用
+var app = new Vue({
+    el: '#app'
+});
+</script>
+    </body>
+</html>
