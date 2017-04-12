@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Vue 练习册</title>
+        <style type="text/css">
+            .list{margin:0 -6px;}
+            .list>span{display:inline-block;padding:0 6px;}
+        </style>
+    </head>
+    <body>
+<div id="app" class="list">
+</div>
+<script type="text/javascript" src="./dist/vue.js"></script>
+<script type="text/javascript">
+
+// 1. 构造器 **********
+
+// 创建 Vue 的根实例
+var app = new Vue({
+
+});
+
+// 2.属性与方法 **********
+
+// 对象的代理
+var data = {name: 'Charles'};
+var vm1 = new Vue({
+    data: data
+});
+
+//data.name ==== vm1.name   // => true
+
+// data.name = 'join';
+// vm1.name; // => join
+
+// vm1.name = 'lucy';
+// data.name; // => lucy
+
+// 暴露的示例属性与方法
+
+var data1 = {name: 'charlse'};
+var vm2 = new Vue({
+    el: '#app',
+    data: data1
+});
+
+// vm2.$data === data; // => true
+// vm2.$el === document.getElementById('app');  // => true
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
