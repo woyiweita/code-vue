@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Vue 练习册</title>
+        <title>Vue 练习册-02.实例</title>
         <style type="text/css">
             .list{margin:0 -6px;}
             .list>span{display:inline-block;padding:0 6px;}
@@ -49,9 +49,17 @@ var vm2 = new Vue({
 // vm2.$el === document.getElementById('app');  // => true
 
 
+// THIS 指向   生命周期
+var vm3 = new Vue({
+    data:{
+        name: 'Charles'
+    },
+    created:function(){
+        console.info(this.name);
+    }
+});
 
-
-
+// Charles
 
 
 

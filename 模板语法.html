@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Vue 练习册-03.模板语法</title>
+        <style type="text/css">
+            .list{margin:0 -6px;}
+            .list>span{display:inline-block;padding:0 6px;}
+            .font-red{color:#F00;}
+            .font-back{color:#000;}
+            .font-green{color:#0F0;}
+        </style>
+    </head>
+    <body>
+
+<div id="app">
+    <p class="list">
+        <span>This is {{msg}}</span>
+    </p>
+</div>
+
+<div id="app1">
+    <p class="list" v-html="spanHtml"></p>
+</div>
+
+<div id="app2">
+    <p class="list">
+        <span v-bind:class='fontClass'>{{msg}}</span>
+    </p>
+</div>
+
+<div id="app3">
+    <p class="list">
+        <span><input type="checkbox" v-model="checkRes" />同意条约</span>
+        <span><input type="button" v-bind:disabled="succedTreaty" value="提交" />{{checkRes}}</span>
+    </p>
+</div>
+<script type="text/javascript" src="./dist/vue.js"></script>
+<script type="text/javascript">
+// 文本
+var vm = new Vue({
+    el: '#app',
+    data: {
+        msg: 'handbag'
+    }
+});
+
+// HTML
+var vm1 = new Vue({
+    el: '#app1',
+    data:{
+        spanHtml: '<span>这是组SPAN标签</span>'
+    }
+});
+
+// 属性 bind 指令
+var vm2 = new Vue({
+    el: '#app2',
+    data: {
+        msg: '一段测试文本',
+        fontClass: 'font-green'
+    }
+});
+
+// 属性
+var vm3 = new Vue({
+    el: '#app3',
+    data: {
+        checkRes: false
+    },
+    computed:{
+        succedTreaty: function(){
+            return !this.checkRes;
+        }
+    },
+    created:function(){
+        console.info(this.checkRes);
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
