@@ -29,10 +29,39 @@
     </p>
 </div>
 
+<!-- 在 v-model 中出现的属性需要在实例化对象中定义，否则提示找不到-->
 <div id="app3">
     <p class="list">
         <span><input type="checkbox" v-model="checkRes" />同意条约</span>
-        <span><input type="button" v-bind:disabled="succedTreaty" value="提交" />{{checkRes}}</span>
+        <span><input type="button" v-bind:disabled="succedTreaty" value="提交" /></span>
+    </p>
+</div>
+
+<div id="app4">
+    <p class="list">
+        <span><input type="checkbox" v-model="ok" />同意条约</span>
+        <span>{{ok? '您已同意该条约':'不再考虑一下吗？'}}</span>
+    </p>
+</div>
+
+<div id="app5">
+    <p class="list">
+        <span><input type="checkbox" v-model="yes" />同意条约</span>
+        <span v-if="yes" class="font-red">这个选择是极好的</span>
+    </p>
+</div>
+
+<div id="app6">
+    <p class="list">
+        <span><a v-bind:href="url">{{msg}}</a></span>
+        <span><button v-on:click="changeUrl">改变链接</button></span>
+    </p>
+</div>
+
+<div id="app7">
+    <p class="list">
+        <span><a :href="url">{{msg}}</a></span>
+        <span><button @click="changeUrl">改变链接</button></span>
     </p>
 </div>
 <script type="text/javascript" src="./dist/vue.js"></script>
@@ -78,17 +107,52 @@ var vm3 = new Vue({
     }
 });
 
+//  使用 javascript 表达式
+var vm4 = new Vue({
+    el: '#app4',
+    data: {
+        ok: false
+    }
+});
 
+// 指令
+var vm5 = new Vue({
+    el: '#app5',
+    data:{
+        yes: false
+    }
+});
 
+// 参数
+var vm6 = new Vue({
+    el: '#app6',
+    data: {
+        msg: '百度',
+        url: 'https://www.baidu.com/'
+    },
+    methods: {
+        changeUrl: function(){
+            this.msg = '网易';
+            this.url = 'http://www.163.com/';
+        }
+    }
+});
 
-
-
-
-
-
-
-
-
+// 语法缩写
+var vm7 = new Vue({
+    el: '#app7',
+    data: {
+        msg: '百度',
+        url: 'https://www.baidu.com/'
+    },
+    methods: {
+        changeUrl: function(){
+            this.msg = '网易';
+            this.url = 'http://www.163.com/';
+            return true;
+        }
+    }
+});
 
 
 

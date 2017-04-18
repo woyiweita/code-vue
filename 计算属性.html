@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Vue 练习册-04.计算属性</title>
+        <style type="text/css">
+            .list{margin:0 -6px 6px;}
+            .list>span{display:inline-block;padding:0 6px;}
+            .font-red{color:#F00;}
+            .font-back{color:#000;}
+            .font-green{color:#0F0;}
+        </style>
+    </head>
+    <body>
+
+<div id="app">
+    <p class="list">
+        <span>在这里输入你想输入的内容：<input type="text" v-model="msg" placeholder="msg" /></span>
+    </p>
+    <p class="list">
+        <span>你输入的内容是：{{msg}}</span>
+        <span>反转后的结果：{{msg.split('').reverse().join('')}}</span>
+        <span>使用计算属性反转：{{reverseMsg}}</span>
+        <span>使用方法反转：{{reverseMsgFun()}}</span>
+        <span>验证计算属性的机制：{{now}}</span>
+        <span><button @click="clickReverse">点击反转</button></span>
+    </p>
+    <p class="list">
+        <span class="font-red">说明：通过上面的实例可以看出，上述三种方法都可以打到同样的预期效果，区别在与后面两种方法比直接在模板里使用计算要方便快捷的多，计算属性与method的区别是前者将计算结果是依赖于缓存的，只有在相关依赖发生改变是才重新计算结果，而后者则每一次都会执行指定函数</span>
+    </p>
+</div>
+
+<div id="app1">
+    <p class="list">
+        <span>姓：<input type="text" v-model="surname" placeholder="输入姓氏" /></span>
+        <span>姓：<input type="text" v-model="name" placeholder="输入名称" /></span>
+        <span>你的姓名是：{{fullname}}</span>
+    </p>
+</div>
+
+<div id="app2">
+    <p class="list">
+        <span>姓：<input type="text" v-model="surname" placeholder="输入姓氏" /></span>
+        <span>姓：<input type="text" v-model="name" placeholder="输入名称" /></span>
+        <span>你的姓名是：{{fullname}}</span>
+    </p>
+</div>
+<p class="list"><span class="font-red">通过这一组比较，说明通过计算属性的方式更方便简洁。</span></p>
+<script type="text/javascript" src="./dist/vue.js"></script>
+<script type="text/javascript">
+// 1. 在模板中应用计算属性，以及在调用计算属性方法
+var vm = new Vue({
+    el: '#app',
+    data: {
+        msg: ''
+    },
+    computed: {
+        reverseMsg: function(){
+            return this.msg.split('').reverse().join('');
+        },
+        now: function(){
+            return new Date(); // 值固定不会发生改变
+        }
+    },
+    methods: {
+        clickReverse: function(){
+            //console.info(this.reverseMsg);
+            // 这里不要误解，这个反转的执行始终是取决于 this.msg 这个值的
+            // 如果 this.msg 值不改变，reverseMsg 的结果始终是一致的  
+            // 如果 this.msg 值发生改变，this.reverseMsg 的绑定也会更新  
+            this.msg = this.reverseMsg;
+        },
+        reverseMsgFun: function(){
+            return this.msg.split('').reverse().join('');
+        }
+    }
+});
+
+// watched属性 与 computed 属性的比较
+    // watched 属性   [监控数据变动(勿滥用)]
+var vm1 = new Vue({
+    el: '#app1',
+    data: {
+        surname:'',
+        name: '',
+        fullname: ''
+    },
+    watch: {
+        surname: function(val){
+            this.fullname = val + ' ' + this.name;
+        },
+        name: function(val){
+            this.fullname = this.surname + ' ' + val;
+        }
+    }
+});
+    // 计算属性
+var vm2 = new Vue({
+    el: '#app2',
+    data: {
+        surname: '',
+        name: ''
+    },
+    computed: {
+        fullname: function(){
+            return this.surname + ' ' + this.name;
+        }
+    }
+});
+
+
+</script>
+</body>
+</html>
