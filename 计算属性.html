@@ -41,11 +41,21 @@
 <div id="app2">
     <p class="list">
         <span>姓：<input type="text" v-model="surname" placeholder="输入姓氏" /></span>
-        <span>姓：<input type="text" v-model="name" placeholder="输入名称" /></span>
+        <span>名：<input type="text" v-model="name" placeholder="输入名称" /></span>
         <span>你的姓名是：{{fullname}}</span>
     </p>
 </div>
+
 <p class="list"><span class="font-red">通过这一组比较，说明通过计算属性的方式更方便简洁。</span></p>
+
+<div id="app3">
+    <p class="list">
+        <span>姓：<input type="text" v-model="surname" placeholder="输入姓氏" /></span>
+        <span>名：<input type="text" v-model="name" placeholder="输入名称" /></span>
+        <span>您的姓名是：<input type="text" v-model="fullname" placeholder="姓名" /></span>
+    </p>
+    <p class="list"><span class="font-red">为验证结果需要注意，姓和名之间需要使用空格，姓在前名在后</span></p>
+</div>
 <script type="text/javascript" src="./dist/vue.js"></script>
 <script type="text/javascript">
 // 1. 在模板中应用计算属性，以及在调用计算属性方法
@@ -107,6 +117,29 @@ var vm2 = new Vue({
         }
     }
 });
+
+// 计算 setter
+var vm3 = new Vue({
+    el: '#app3',
+    data: {
+        surname: '',
+        name: ''
+    },
+    computed: {
+        fullname: {
+            get: function(){
+                return this.surname + ' ' + this.name;
+            },
+            set: function(val){
+                var nameArr = val.split(' ');
+                this.surname = nameArr[0];
+                this.name = nameArr[nameArr.length - 1];
+            }
+        }
+    }
+});
+
+
 
 
 </script>

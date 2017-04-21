@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Vue 练习册-04.样式绑定</title>
+        <style type="text/css">
+            .list{margin:0 -6px 6px;}
+            .list>span{display:inline-block;padding:0 6px;}
+            .font-red{color:#F00;}
+            .font-black{color:#000;}
+            .font-green{color:#0F0;}
+            .weight-bold{font-weight:bold;}
+            .weight-normal{font-weight:normal;}
+            .size12{font-size:12px;}
+            .size14{font-size:14px;}
+            .size16{font-size:16px;}
+            .size18{font-size:18px;}
+        </style>
+    </head>
+    <body>
+
+<div id="app">
+    <p class="list">
+        <span v-bind:class="{ size18: isBig }">测试文本</span>
+    </p>
+</div>
+
+<div id="app1">
+    <p class="list">
+        <span class="font-green" v-bind:class="{ size12: isS12 , 'weight-bold': isWeight }">测试文本</span>
+    </p>
+    <p class="list">
+        <span><input type="checkbox" v-model="isS12" /> 12px</span>
+        <span><input type="checkbox" v-model="isWeight" /> Bold</span>
+    </p>
+</div>
+
+<div id="app2">
+    <p class="list">
+        <span v-bind:class="classObj">测试文本</span>
+    </p>
+</div>
+
+<div id="app3">
+    <p class="list">
+        <span v-bind:class="classObj">测试文本</span>
+    </p>
+    <p class="list">
+        <span><input type="checkbox" v-model="isSize" /> 12px</span>
+        <span><input type="checkbox" v-model="isWeight" /> Bold</span>
+        <span><input type="checkbox" v-model="isColor" /> Red</span>
+    </p>
+</div>
+
+<p>遗留问题，需要依赖后期技术解决，暂定方案如下</p>
+
+<div id="appN">
+    <p class="list"><span v-bind:class="classObj">测试文本</span></p>
+    <p class="list">
+        <span>
+            <input type="radio" name="size" /> 12px 
+            <input type="radio" name="size" /> 14px 
+            <input type="radio" name="size" /> 16px 
+            <input type="radio" name="size" /> 18px 
+        </span>
+    </p>
+    <p class="list">
+        <span>
+            <input type="radio" name="weight" /> Bold 
+            <input type="radio" name="weight" /> Normal 
+        </span>
+    </p>
+    <p class="list">
+        <span>
+            <input type="radio" name="color" /> Red 
+            <input type="radio" name="color" /> Green 
+            <input type="radio" name="color" /> Black 
+        </span>
+    </p>
+</div>
+
+
+
+
+<script type="text/javascript" src="./dist/vue.js"></script>
+<script type="text/javascript">
+// 1. 在模板中应用计算属性，以及在调用计算属性方法
+//  需要注意的是如果样式字符中包含有特殊字符的时候需要用引号包括
+var vm = new Vue({
+    el: '#app',
+    data: {
+        isBig: true
+    }
+});
+
+
+var vm1 = new Vue({
+    el: '#app1',
+    data: {
+        isS12: false,
+        isWeight: false
+    }
+});
+
+// 将实例2中的代码进行修改，采用对象的方式
+var vm2 = new Vue({
+    el: '#app2',
+    data: {
+        classObj: {
+            'font-red': true,
+            'weight-bold': true,
+            'size16': true
+        }
+    }
+});
+
+// 也还可以通过计算属性返回数据对象的方式
+var vm3 = new Vue({
+    el: '#app3',
+    data: {
+        isSize: false,
+        isWeight: false,
+        isColor: false
+    },
+    computed: {
+        classObj: function(){
+            return {
+                'font-red': this.isColor,
+                'weight-bold': this.isWeight,
+                'size12': this.isSize
+            }
+        }
+    }
+});
+
+
+// 此处问题遗留
+
+
+
+
+
+</script>
+</body>
+</html>

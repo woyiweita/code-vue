@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Vue 练习册-04.样式绑定</title>
+        <style type="text/css">
+            .list{margin:0 -6px 6px;}
+            .list>span{display:inline-block;padding:0 6px;}
+            .font-red{color:#F00;}
+            .font-black{color:#000;}
+            .font-green{color:#0F0;}
+            .weight-bold{font-weight:bold;}
+            .weight-normal{font-weight:normal;}
+            .size12{font-size:12px;}
+            .size14{font-size:14px;}
+            .size16{font-size:16px;}
+            .size18{font-size:18px;}
+        </style>
+    </head>
+    <body>
+<!-- 使用 -->
+<div id="app">
+    <p class="list">
+        <span v-bind:class="{ size18: isBig }">测试文本</span>
+    </p>
+</div>
+
+<script type="text/javascript" src="./dist/vue.js"></script>
+<script type="text/javascript">
+
+
+
+
+</script>
+</body>
+</html>

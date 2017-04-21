@@ -47,7 +47,8 @@
 <div id="app5">
     <p class="list">
         <span><input type="checkbox" v-model="yes" />同意条约</span>
-        <span v-if="yes" class="font-red">这个选择是极好的</span>
+        <span v-if="yes" class="font-green">这个选择是极好的</span>
+        <span v-else class="font-red">不再考虑一下吗？</span>
     </p>
 </div>
 
@@ -64,6 +65,8 @@
         <span><button @click="changeUrl">改变链接</button></span>
     </p>
 </div>
+
+<p>遗留问题，如何使链接能够自由切换</p>
 <script type="text/javascript" src="./dist/vue.js"></script>
 <script type="text/javascript">
 // 文本
