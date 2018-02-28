@@ -1,19 +1,19 @@
 <template>
-<!-- v-for 指令的使用，实现数据循环 -->
-<!-- 数组循环|对象循环 -->
+<!-- 添加事件、修改数据 -->
 <div>
-	<my-first></my-first>
 	<ul>
 		<li v-for="(item, index) in list" v-text="item.name + ': ￥' + item.price + ' (' + item.weight + ')'" :class="{odd: index % 2}"></li>
-		<li><span  v-for="key in fruits" v-text="key+' '"></span></li>
 	</ul>
+	<p>
+		<input type="button" value="addItem" v-on:click="addItem"><br>
+		<input type="button" value="editItem" v-on:click="editItem"><br>
+	</p>
 </div>
 </template>
 <script>
-	import myFirst from './MyFirst'
+	import Vue from 'vue';
 	export default {
-		name: 'mySecond',
-		components:{myFirst},
+		name: 'myThree',
 		data () {
 			return {
 				list: [
@@ -78,6 +78,15 @@
 					price: '35.8',
 					weight: '2400g'
 				}
+			}
+		},
+		methods:{ // 放置事件执行函数
+			addItem () {
+				this.list.push(this.fruits);
+			},
+			editItem () {
+				// Vue.set(this['list'][2],'price','6.90');
+				this['list'][2]['price'] = '6.90';
 			}
 		}
 	}

@@ -1,4 +1,6 @@
 <template>
+<!-- 构建一个自定义组件，并能够实现数据绑定 -->
+<!-- 在组件中需要注意，data 必须是一个函数！ -->
 	<div>
 		<p v-bind:title="ms" v-text="msg">aa</p>
 		<p v-html="msghtml">bb</p>
