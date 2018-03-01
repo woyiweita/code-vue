@@ -14,7 +14,7 @@ export default {
 	},
 	methods: {
 		onKeydown () {
-			this.$emit('my-emit','Hi!');
+			this.$emit('my-emit',this.value);
 		}
 	}
 }
