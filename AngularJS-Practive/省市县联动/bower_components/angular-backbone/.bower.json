@@ -1,0 +1,37 @@
+{
+  "name": "angular-backbone",
+  "version": "1.0.1",
+  "homepage": "https://github.com/sroze/angular-backbone",
+  "authors": [
+    "Samuel ROZE <samuel.roze@gmail.com>"
+  ],
+  "description": "Backbone proxy for AngularJS",
+  "main": "./release/angular-backbone.js",
+  "dependencies": {
+    "angular": ">= 1.2.1",
+    "underscore": ">= 1.5.2",
+    "backbone": ">= 1.1.0"
+  },
+  "keywords": [
+    "backbone",
+    "angular"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "1.0.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.0.1",
+    "commit": "24227174cce893b4d6fbdb717c6b21d9d33c476e"
+  },
+  "_source": "https://github.com/sroze/angular-backbone.git",
+  "_target": "^1.0.1",
+  "_originalSource": "angular-backbone",
+  "_direct": true
+}

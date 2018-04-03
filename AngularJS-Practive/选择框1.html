@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="utf-8" />
+    <title>AngularJS select 选择框</title>
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css" />
+</head>
+<body>
+<div class="container">
+  <h3 class="text-info">使用 ng-options 创建选择框</h3>
+ <form action="#" class="form-horizontal" role="form" ng-controller="firstCtrl">
+   <div class="form-group">
+     <label for="ball" class="col-md-2 control-label">球类：</label>
+     <div class="col-md-10">
+       <select name="ball" id="ball" ng-model="ball" class="form-control" ng-options="value for value in balls">
+       <option value="">-- 请选择 --</option>
+       </select>
+     </div>
+    </div>
+    <div class="form-group">
+      <p class="alert alert-success">你选择的是：{{ball}}</p>
+    </div>
+  </form>
+  <h3 class="text-info">使用 ng-repeat 创建选择框</h3>
+  <form action="#" class="form-horizontal" role="form" ng-controller="secondCtrl">
+    <div class="form-group">
+      <label for="balltwo" class="control-label col-xs-2">球类：</label>
+      <div class="col-xs-10">
+        <select name="balltwo" id="balltwo" ng-model="balltwo" class="form-control">
+          <option value="">-- 请选择 --</option>
+          <option ng-repeat="(x,value) in balltwos['ball']" value="{{x}}">{{value}}</option>
+        </select>
+      </div>
+    </div> 
+    <div class="form-group">
+      <p class="alert alert-success">你选择的是：{{balltwo}}</p>
+    </div>
+  </form>
+  <h3 class="text-info">使用 ng-repeat 创建选择框</h3>
+  <form action="#" class="form-horizontal" role="form" ng-controller="thirdCtrl">
+    <div class="form-group">
+      <label for="ballthree" class="control-label col-xs-2">球类：</label>
+      <div class="col-xs-10">
+        <select name="ballthree" id="ballthree" ng-model="ballthree" class="form-control">
+          <option value="">-- 请选择 --</option>
+          <option ng-repeat="value in ballthrees" value="{{value.name}}">{{value.name}}</option>
+        </select>
+      </div>
+    </div> 
+    <div class="form-group">
+      <p class="alert alert-success">你选择的是：{{ballthree}}</p>
+    </div>
+  </form>
+  <h3 class="text-info">使用 ng-option 创建选择框</h3>
+  <form action="#" class="form-horizontal" role="form" ng-controller="fourthCtrl">
+    <div class="form-group">
+      <label for="ballfour" class="control-label col-xs-2">球类：</label>
+      <div class="col-xs-10">
+        <select name="ballfour" id="ballfour" ng-model="ballfour" class="form-control" ng-options="key.name as key.name for key in ballfours">
+          <option value="">-- 请选择 --</option>
+        </select>
+      </div>
+    </div> 
+    <div class="form-group">
+      <p class="alert alert-success">你选择的是：{{ballfour}}</p>
+    </div>
+  </form>
+</div>
+<script type="text/javascript" src="./angularjs/angular.js"></script>
+<script type="text/javascript">
++function(){
+  var app = angular.module('myApp',[]);
+
+  // model 1 创建选择框
+  app.controller('firstCtrl',function($scope){
+    $scope.ball = "";
+    $scope.balls = ['足球','手球','网球','篮球','排球','羽毛球','棒球','乒乓球'];
+  });
+
+  // model 2 ng-repeat 创建选择框
+  app.controller('secondCtrl',function($scope){
+    $scope.balltwo = "";
+    $scope.balltwos = {'ball':['足球','手球','网球','篮球','排球','羽毛球','棒球','乒乓球']};
+  });
+
+  // model 3 ng-repeat 创建选择框
+  app.controller('thirdCtrl',function($scope){
+    $scope.ballthrees = [
+      {'name':'足球','selected':false},
+      {'name':'手球','selected':false},
+      {'name':'网球','selected':false},
+      {'name':'篮球','selected':false},
+      {'name':'排球','selected':false},
+      {'name':'羽毛球','selected':true},
+      {'name':'棒球','selected':false},
+      {'name':'乒乓球','selected':false}
+    ];
+
+    for(var key in $scope.ballthrees){
+      if($scope.ballthrees[key]['selected']){
+        $scope.ballthree = $scope.ballthrees[key]['name'];
+      }
+    }
+
+  });
+
+  // model 4 ng-option 创建选择框
+  app.controller('fourthCtrl',function($scope){
+    $scope.ballfours = [
+          {'name':'足球','selected':false},
+          {'name':'手球','selected':false},
+          {'name':'网球','selected':false},
+          {'name':'篮球','selected':false},
+          {'name':'排球','selected':false},
+          {'name':'羽毛球','selected':true},
+          {'name':'棒球','selected':false},
+          {'name':'乒乓球','selected':false}
+        ];
+    for(var key in $scope.ballfours){
+      if($scope.ballfours[key]['selected']){
+        $scope.ballfour = $scope.ballfours[key]['name'];
+      }
+    }
+
+  });
+}();
+</script>
+</body>
+</html>

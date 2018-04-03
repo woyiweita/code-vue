@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="UTF-8" />
+    <title>AngularJS Scope 作用域</title>
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css" />
+</head>
+<body >
+   <div class="container" ng-controller="myCtrl">
+     <form action="#" class="form-horizontal" name="myForm" role="form">
+        <div class="form-group">
+          <label for="name" class="control-label col-md-2">姓名：</label>
+          <div class="col-md-10">
+            <input type="text" name='myName' class="form-control" placeholder="请输入您的姓名" ng-model="myName" />
+          </div>
+        </div>
+        <div class="col-md-10 col-md-offset-2  text-primary"> 你输入的是：{{myName}} 
+        </div>
+     </form>
+   </div>
+<script type="text/javascript" src="./angularjs/angular.js"></script>
+<script type="text/javascript">
++function(){
+    var myApp = angular.module('myApp',[]);
+    myApp.controller('myCtrl',['$scope',function($scope){
+        $scope.myName = 'dafafd';
+    }]);
+}();
+</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="UTF-8" />
+    <title>AngularJS 双向数据绑定</title>
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css" />
+</head>
+<body ng-controller="myCtrl">
+   <div class="container">
+     <form action="#" class="form-horizontal" name="myForm" role="form">
+        <div class="form-group">
+          <label for="email" class="control-label col-md-2">邮箱：</label>
+          <div class="col-md-10">
+            <input type="email" name='email' class="form-control" placeholder="请输入邮箱" ng-model="emaile" />
+          </div>
+        </div>
+        <div class="col-md-12 text-primary"> 你输入的邮箱是：{{emaile}} 
+          <span class="text-dangue" ng-show='myForm.email.$error.email'></span>
+          <span class="text-warning">如果是text表单会实时输出</span>
+        </div>
+     </form>
+   </div>
+<script type="text/javascript" src="./angularjs/angular.js"></script>
+<script type="text/javascript">
++function(){
+    var myApp = angular.module('myApp',[]);
+    myApp.controller('myCtrl',['$scope',function($scope){
+        $scope.emaile = 'dafafd';
+    }]);
+}();
+</script>
+</body>
+</html>

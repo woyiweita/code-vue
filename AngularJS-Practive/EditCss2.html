@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="UTF-8" />
+    <title>AngularJS 双向数据绑定</title>
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css" />
+    <style type="text/css">
+      .qing{color:#0ff;}
+      .error{color:#f00;}
+      .zi{color:#f0f;}
+      .warning{color:#ff0;}
+      .lv{color:#0f0;}
+      .lan{color:#00f;}
+    </style>
+</head>
+<body ng-controller="myCtrl">
+   <p ng-class='{error: isError, warning: isWarning}'>{{missText}}</p>
+<!--    <span class="qing">颜色</span>
+<span class="red">颜色</span>
+<span class="zi">颜色</span>
+<span class="huang">颜色</span>
+<span class="lv">颜色</span>
+<span class="lan">颜色</span> -->
+   <div class="row">
+       <div class="col-md-offset-2 col-md-8">
+           <input type="button" class="btn btn-primary" value="info" ng-click="setPrimary()" />
+           <input type="button" class="btn btn-success" value="success" ng-click="setSuccess()" />
+           <input type="button" class="btn btn-warning" value="Warning" ng-click="setWarning()" />
+           <input type="button" class="btn btn-danger" value="Error" ng-click="setDanger()" />
+       </div>
+   </div>
+<script type="text/javascript" src="./angularjs/angular.js"></script>
+<script type="text/javascript">
++function(){
+    var myApp = angular.module('myApp',[]);
+    myApp.controller('myCtrl', ['$scope', function($scope){
+        $scope.missText = '默认';
+        $scope.isWarning = false;
+        $scope.isError = false;
+        $scope.setWarning = function(){
+          $scope.missText = '警告';
+          $scope.isWarning = true;
+          $scope.isError = false;
+        };
+        $scope.setDanger = function(){
+          $scope.missText = '错误';
+          $scope.isWarning = false;
+          $scope.isError = true;
+        };
+    }]);
+}();
+</script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="utf-8" />
+    <title>AngularJS 服务</title>
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css" />
+</head>
+<body>
+<div class="container">
+  <blockquote>
+      <p class="text-success">可以创建自己的服务，或使用内建服务</p>
+  </blockquote>
+  <div class="row" ng-controller="firstCtrl">
+    <div class="col-xs-12">
+        <h3 class="text-info"> $location 服务</h3>
+        <p class="text-success">获取当前页面的URL地址：{{loca.url}}</p>
+    </div>
+  </div>
+  <div class="row" ng-controller="secondCtrl">
+    <div class="col-xs-12">
+        <h3 class="text-info">$http 服务</h3>
+    </div>
+      <p class="text-success">获取服务器的返回信息：{{http.info}}</p>
+  </div>
+  <div class="row" ng-controller="thirdCtrl">
+    <div class="col-xs-12">
+        <h3 class="text-info">$timeout 服务</h3>
+    </div>
+      <p class="text-success">该服务相当于 window.setTimeout() 函数</p>
+      <p class="text-success">刷新页面两秒钟后改变这句话：{{timeout.info}}</p>
+  </div>
+  <div class="row" ng-controller="fourthCtrl">
+    <div class="col-xs-12">
+        <h3 class="text-info">$interval 服务</h3>
+    </div>
+    <p class="text-success">该服务相当于 window.setInterval() 函数，指定间隔执行一次函数</p>
+    <p class="text-success">刷新页面两秒钟后改变这句话：{{interval.info}}</p>
+  </div>
+  <div class="row" ng-controller="fifthCtrl">
+    <div class="col-xs-12">
+        <h3 class="text-info">自定义服务</h3>
+    </div>
+    <p class="text-success">将数字转换为16进制字符</p>
+    <form action="#" class="form-horizontal" role="form">
+          <div class="form-group">
+              <label for="name" class="control-label col-xs-2">输入整数数值：</label>
+              <div class="col-xs-10">
+                  <input type="number" name="num" id="num" ng-model="user.num" class="form-control" />
+              </div>
+          </div>
+          <div class="form-group">
+              <div class="col-xs-offset-2 col-xs-10">
+                  转换后的字符为：{{ (user.num) | toPint}}
+              </div>
+          </div>
+      </form>
+  </div>
+  <div class="row" ng-controller="sixthCtrl">
+    <div class="col-xs-12">
+        <h3 class="text-info">$http 服务的应用示例</h3>
+    </div>
+    <p class="text-success">获取服务器上的数据，进行界面处理</p>
+    <form action="#" class="form-horizontal" role="form">
+          <div class="form-group" ng-repeat="(key,val) in datas">
+              <label for="name" class="control-label col-xs-2">{{key}}：</label>
+              <div class="col-xs-10">
+                  <label class="checkbox-inline" ng-repeat="x in datas[key] | orderBy:'value'">
+                    <input type="checkbox" ng-checked="{{x.checked}}" value="{{x.value}}" /> {{x.label}}
+                </label>
+              </div>
+          </div>
+      </form>
+  </div>
+</div>
+<script type="text/javascript" src="./angularjs/angular.js"></script>
+<script>
+    +function(window){
+        var app = angular.module('myApp',[]);
+
+        app.controller('firstCtrl',function($scope,$location){
+            console.log($location);
+            $scope.loca = {'url':$location.absUrl()}
+        });
+
+        app.controller('secondCtrl',function($scope,$http){
+            console.log($http);
+            $http.get('./include/welcome.html').then(function(response){
+                $scope.http = {'info':response.data};
+            });
+        });
+
+        app.controller('thirdCtrl',function($scope,$timeout){
+            $scope.timeout = {'info':'Welcome AngularJS!'};
+           console.log($timeout);
+           $timeout(function(){
+            console.log(this);
+            $scope.timeout.info = 'AngularJS very good!';
+           },2000);
+        });
+
+        app.controller('fourthCtrl',function($scope,$interval){
+            $scope.interval = {'info':'Welcome AngularJS!'};
+            console.log($interval);
+            var i = 0;
+            $interval(function(){
+                $scope.interval.info = "AngularJS very good!" + ++i;
+            },2000);
+        });
+
+        // 自定义服务
+        app.service('$num',function(){
+            this.fnToString = function(n){
+                return n.toString(16);
+            }
+        });
+        // 定义在过滤器中的应用
+        app.filter('toPint',['$num',function($num){
+
+            return function(n){
+                if(!n){
+                    return 0;
+                } else{
+                    return $num.fnToString(n);
+                }
+            };
+        }]);
+        app.controller('fifthCtrl',function($scope){
+            $scope.user = {'num':255}
+        });
+
+        // $http 服务的应用
+        app.controller('sixthCtrl',function($scope,$http){
+          $http.get('./include/http_datas.json').success(function(response){
+            console.log('######');
+            console.log(response);
+            $scope.datas = response;
+          });
+        });
+
+    }(window);
+</script>
+</body>
+</html>

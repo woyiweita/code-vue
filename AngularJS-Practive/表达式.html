@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app="">
+<head>
+    <meta charset="utf-8" />
+    <title>AngularJS 表达式的应用</title>
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css" />
+</head>
+<body>
+<div class="container">
+  <p class="text-info">简单的运算表达式</p>
+  <p class="text-primary">直接运算5+5={{5+5}}</p>
+  <p class="text-info">设置变量运算,使用ng-init初始化数据</p>
+  <p class="text-primary" ng-init="firstNum=2;secondNum=8">
+    firstNum*secondNum = {{firstNum * secondNum}}
+  </p>
+  <p class="text-primary">运用属性值的方式计算firstNum*secondNum=<span ng-bind="firstNum * secondNum"></span></p>
+  <p class="text-info">读取对象中的值</p>
+  <p class="text-danger">对象键中如果含有大写字母，需要使用引号将键引起来</p>
+  <p class="text-primary" ng-init="myObj={'surName':'庞',names:'燕杰'}">{{myObj.surName+myObj.names}}</p>
+  <p class="text-info">读取数组中的值</p>
+  <p class="text-primary" ng-init="myArr=['人之初','性本善','性相近','习相远','苟不教','性乃迁','教之道','贵以专']">
+    {{myArr[6]}} <span ng-bind="myArr[7]"></span>
+  </p>
+</div>
+<script type="text/javascript" src="./angularjs/angular.js"></script>
+</body>
+</html>

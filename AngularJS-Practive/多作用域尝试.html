@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="UTF-8" />
+    <title>AngularJS 多作用域尝试</title>
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css" />
+</head>
+<body >
+   <div class="container" ng-controller="firstCtrl">
+     <form action="#" class="form-horizontal" name="firstForm" role="form">
+        <div class="col-md-10 col-md-offset-2 text-primary"> 你输入的用户名是：{{myName}} 
+        </div>
+        <div class="form-group">
+          <label for="myName" class="control-label col-md-2">用户名：</label>
+          <div class="col-md-10">
+            <input type="text" name='myName' class="form-control" placeholder="请输入用户名" ng-model="myName" />
+          </div>
+        </div>
+     </form>
+   </div>
+   <div class="container" ng-controller="secondCtrl">
+     <form action="#" class="form-horizontal" name="secondForm" role="form">
+        <div class="col-md-10 col-md-offset-2 text-primary"> 你输入的密码是：{{myPassword}}
+        </div>
+        <div class="form-group">
+          <label for="myPassword" class="control-label col-md-2">密码：</label>
+          <div class="col-md-10">
+            <input type="password" name='myPassword' class="form-control" placeholder="请输入密码" ng-model="myPassword" />
+          </div>
+        </div>
+     </form>
+   </div>
+<script type="text/javascript" src="./angularjs/angular.js"></script>
+<script type="text/javascript">
++function(){
+    var myApp = angular.module('myApp',[]);
+    myApp.controller('firstCtrl',['$scope',function($scope){
+        $scope.myName = 'Charles Yih';
+    }]);
+
+    myApp.controller('secondCtrl',['$scope',function($scope){
+      $scope.myPassword = "password";
+    }]);
+}();
+</script>
+</body>
+</html>

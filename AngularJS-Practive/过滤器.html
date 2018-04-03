@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="utf-8" />
+    <title>AngularJS 过滤器</title>
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css" />
+</head>
+<body>
+<div class="container">
+  <p class="alert alert-info">过滤器可以通过一个管道字符（|）和一个过滤器添加到表达式中</p>
+  <pre>
+      <p>currency --- 格式化数字为货币格式</p>
+      <p>filter --- 从数组项中选择一个子集</p>
+      <p>lowercase --- 格式化字符串为小写</p>
+      <p>orderBy --- 根据某个表达式排列数组</p>
+      <p>uppercase --- 格式化字符串为大写</p>
+  </pre>
+  <div class="row" ng-controller="firstCtrl">
+    <div class="col-xs-12">
+        <h3 class="text-info">转化英文字符串的大小写</h3>
+    </div>
+      <form action="#" class="form-horizontal" role="form">
+          <div class="form-group">
+              <label for="name" class="control-label col-xs-2">用户名：</label>
+              <div class="col-xs-10">
+                  <input type="text" name="name" id="name" ng-model="user.name" class="form-control" />
+              </div>
+          </div>
+          <div class="form-group">
+              <div class="col-xs-offset-2 col-xs-10">
+                  大写：{{showInfo() | uppercase}}<br />
+                  小写：{{showInfo() | lowercase}}
+              </div>
+          </div>
+      </form>
+  </div>
+  <div class="row" ng-controller="secondCtrl">
+    <div class="col-xs-12">
+        <h3 class="text-info">将数字转化为美元价格</h3>
+    </div>
+      <form action="##" class="form-horizontal" role="form">
+          <div class="form-group">
+              <label for="num" class="control-label col-xs-2">数量：</label>
+              <div class="col-xs-4">
+                  <input type="number" ng-model="num" name='num' id="num" class="form-control" />
+              </div>
+              <label for="price" class="control-label col-xs-2">单价：</label>
+              <div class="col-xs-4">
+                  <input type="number" ng-model="price" name="price" id="price" class="form-control" />
+              </div>
+          </div>
+          <div class="col-xs-offset-2 col-xs-10">
+             总计： {{ (num * price) | currency}}
+          </div>
+      </form>
+  </div>
+  <div class="row" ng-controller="thirdCtrl">
+    <div class="col-xs-12">
+        <h3 class="text-info">按照指定字符排序</h3>
+    </div>
+      <form action="##" class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="control-label col-xs-2">兴趣爱好：</label>
+            <div class="col-xs-10">
+                <label class="checkbox-inline" ng-repeat="x in hobbies |  orderBy:'value'">
+                    <input type="checkbox" ng-checked="{{x.checked}}" value="{{x.value}}" /> {{x.label}}
+                </label>
+            </div>
+          </div>
+      </form>
+  </div>
+  <div class="row" ng-controller="fourthCtrl">
+    <div class="col-xs-12">
+        <h3 class="text-info">筛选出指定字符</h3>
+    </div>
+      <form action="##" class="form-horizontal" role="form">
+        <div class="form-group">
+            <label for="so" class="control-label col-xs-2">筛选字符：</label>
+            <div class="col-xs-10">
+                <input type="text" ng-model="so" name="so" id="so" class="form-control" />
+            </div>
+        </div>
+          <div class="form-group">
+            <label class="control-label col-xs-2">兴趣爱好：</label>
+            <div class="col-xs-10">
+                <label class="checkbox-inline" ng-repeat="x in hobbies | filter:so | orderBy:'value'">
+                    <input type="checkbox" ng-checked="{{x.checked}}" value="{{x.value}}" /> {{x.label}}
+                </label>
+            </div>
+          </div>
+      </form>
+  </div>
+</div>
+<script type="text/javascript" src="./angularjs/angular.js"></script>
+<script>
+    +function(window){
+        var app = angular.module('myApp',[]);
+        app.controller('firstCtrl',function($scope){
+            $scope.user={'name':'CharlesYih'};
+            $scope.showInfo = function(){
+                return $scope.user.name;
+            }
+        });
+        app.controller('secondCtrl',function($scope){});
+        app.controller('thirdCtrl',function($scope){
+            $scope.hobbies = [
+                              {'checked':true,'value':'1','label':'羽毛球'},
+                              {'checked':false,'value':'4','label':'乒乓球'},
+                              {'checked':false,'value':'7','label':'排球'},
+                              {'checked':false,'value':'6','label':'足球'},
+                              {'checked':false,'value':'5','label':'篮球'},
+                              {'checked':true,'value':'0','label':'游泳'},
+                              {'checked':true,'value':'2','label':'跑步'},
+                              {'checked':true,'value':'3','label':'跳绳'},
+                            ];
+        });
+        app.controller('fourthCtrl',function($scope){
+            $scope.so = '球';
+            $scope.hobbies = [
+                              {'checked':true,'value':'1','label':'羽毛球'},
+                              {'checked':false,'value':'4','label':'乒乓球'},
+                              {'checked':false,'value':'7','label':'排球'},
+                              {'checked':false,'value':'6','label':'足球'},
+                              {'checked':false,'value':'5','label':'篮球'},
+                              {'checked':true,'value':'0','label':'游泳'},
+                              {'checked':true,'value':'2','label':'跑步'},
+                              {'checked':true,'value':'3','label':'跳绳'},
+                            ];
+        });
+    }(window);
+</script>
+</body>
+</html>

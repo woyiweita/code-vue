@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="UTF-8" />
+    <title>AngularJS 双向数据绑定</title>
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css" />
+</head>
+<body ng-controller="myCtrl">
+   <p ng-class="{'alert-info': userInfo.isInfo, 'alert-success': userInfo.isSuccess, 'alert-warning': userInfo.isWarning, 'alert-danger': userInfo.isDanger}" class="alert">{{userInfo.text}}</p>
+   <div class="row">
+       <div class="col-md-offset-2 col-md-8">
+           <input type="button" class="btn" value="default" ng-click="setDefault()" />
+           <input type="button" class="btn btn-primary" value="info" ng-click="setPrimary()" />
+           <input type="button" class="btn btn-success" value="success" ng-click="setSuccess()" />
+           <input type="button" class="btn btn-warning" value="warning" ng-click="setWarning()" />
+           <input type="button" class="btn btn-danger" value="danger" ng-click="setDanger()" />
+       </div>
+   </div>
+<script type="text/javascript" src="./angularjs/angular.js"></script>
+<script type="text/javascript">
++function(){
+    var myApp = angular.module('myApp',[]);
+    myApp.controller('myCtrl',['$scope',function($scope){
+        $scope.userDefault = {
+            isInfo : false,
+            isSuccess : false,
+            isWarning : false,
+            isDanger : false,
+            text : '默认'
+        };
+        $scope.userInfo = $scope.userDefault;
+        $scope.setPrimary = function(){
+          $scope.userInfo ={
+            isInfo : true,
+            text: '陈述'
+          }
+          console.log($scope.userInfo);
+        }
+        $scope.setSuccess = function(){
+          $scope.userInfo ={
+            isSuccess : true,
+            text: '成功'
+          }
+          console.log($scope.userInfo);
+        }
+        $scope.setWarning = function(){
+          $scope.userInfo ={
+            isWarning : true,
+            text: '警告'
+          }
+          console.log($scope.userInfo);
+        }
+        $scope.setDanger = function(){
+          $scope.userInfo ={
+            isDanger: true,
+            text: '错误'
+          }
+          console.log($scope.userInfo);
+        }
+        $scope.setDefault = function(){
+          $scope.userInfo = $scope.userDefault;
+          console.log($scope.userInfo);
+        }
+    }]);
+}();
+</script>
+</body>
+</html>

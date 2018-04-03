@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="utf-8" />
+    <title>AngularJS $http服务</title>
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css" />
+</head>
+<body>
+<div class="container">
+  <p class="alert alert-info">使用AngularJS 的$http 服务，用checked表单，选中指定省市，显示下属地区</p>
+  <div class="row" ng-controller="myCtrl">
+    <div class="col-xs-12">
+        <h3 class="text-info">$http 服务的应用示例</h3>
+    </div>
+    <p class="text-success">获取服务器上的数据，进行界面处理</p>
+    <form action="#" class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="control-label col-xs-2">省：</label>
+            <div class="col-xs-10">
+                <label class="checkbox-inline" ng-repeat="(key,val) in datas">
+                  <input type="checkbox" name="province" value="{{key}}" ng-click="selected($event,['province',1])" /> {{key}}
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-xs-2">市：</label>
+            <div class="col-xs-10">
+                <label class="checkbox-inline" ng-repeat="(key,val) in datas[address.province]">
+                  <input type="checkbox" name="city" value="{{key}}" ng-click="selected($event,['city',2])" /> {{key}}
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-xs-2">区/县：</label>
+            <div class="col-xs-10">
+                <label class="checkbox-inline" ng-repeat="val in datas[address.province][address.city]">
+                  <input type="checkbox" name="district" value="{{val}}" ng-click="selected($event,['district',3])" /> {{val}}
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-xs-2">您的地址是：</label>
+            <div class="col-xs-10">
+              <p class="text-success form-control-static" ng-bind="address.province + address.city + address.district"></p>
+            </div>
+          </div>
+      </form>
+  </div>
+</div>
+<script type="text/javascript" src="./angularjs/angular.js"></script>
+<script>
+    +function(window){
+        var app = angular.module('myApp',[]);
+        // $http 服务的应用
+        app.controller('myCtrl',function($scope,$http){
+
+          $http.get('./include/china.json').success(function(response){
+            $scope.datas = response;
+          });
+
+          $scope.address={};
+          $scope.selected = function(event,model){
+            var ary={},i=0;
+            // 当前选项为选中状态，其他选项为未选中状态
+            //var domPer = event.target.parentNode.parentNode.childNodes;
+            domListLoop(model[0]);
+            $scope.address[model[0]] = event.target.value;
+            event.target.checked = true;
+            for(var key in $scope.address){
+                  if(i<model[1]){
+                    ary[key] = $scope.address[key];
+                  }
+                  ++i;
+                }
+            $scope.address = ary;
+          }
+        });
+
+      var domListLoop = function domList(name){
+        //console.log(elem.parentNode.parentNode);
+        //var childs = elem.parentNode.parentNode.children;
+        var childs = document.getElementsByName(name);
+        for(var i = 0;i< childs.length;i++){
+          if(childs[i].nodeType === 1){
+            childs[i].checked=false;
+          }
+        }
+      }
+    }(window);
+</script>
+</body>
+</html>

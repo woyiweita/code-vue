@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="utf-8" />
+    <title>AngularJS 控制器</title>
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css" />
+</head>
+<body>
+<div class="container">
+  <p class="alert alert-info">控制器控制AngularJS应用程序的数据</p>
+  <p class="alert alert-info">控制器是常规的javascript对象</p>
+  <pre>
+      <p>ng-controller="firstCtrl" 属性是一个 AngularJS 指令。用于定义一个控制器。</p>
+      <p>'firstCtrl' 是一个javascript 函数</p>
+      <p>使用'$scope'是一个应用对象（属于应用对象和函数），用来调用控制器</p>
+      <p>ng-model 指令 绑定输入域到控制器的属性</p>
+  </pre>
+  <div class="row" ng-controller="firstCtrl">
+      <form action="#" class="form-horizontal" role="form">
+          <div class="form-group">
+              <label for="name" class="control-label col-xs-2">用户名：</label>
+              <div class="col-xs-10">
+                  <input type="text" name="name" id="name" ng-model="user.name" class="form-control" />
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="password" class="control-label col-xs-2">密　码：</label>
+              <div class="col-xs-10">
+                  <input type="password" name="password" id="password" ng-model="user.password" class="form-control" />
+              </div>
+          </div>
+          <div class="form-group">
+              <div class="col-xs-offset-2 col-xs-10">
+                  用户信息：{{showInfo()}}
+              </div>
+          </div>
+      </form>
+  </div>
+  <div class="row" ng-controller="secondCtrl">
+      <form action="##" class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="control-label col-xs-2">兴趣爱好：</label>
+            <div class="col-xs-10">
+                <label class="checkbox-inline" ng-repeat="x in hobbies">
+                    <input type="checkbox" ng-checked="{{x.checked}}" value="{{x.value}}" /> {{x.label}}
+                </label>
+            </div>
+          </div>
+      </form>
+  </div>
+</div>
+<script type="text/javascript" src="./angularjs/angular.js"></script>
+<script>
+    +function(window){
+        var app = angular.module('myApp',[]);
+        app.controller('firstCtrl',function($scope){
+            $scope.user={'name':'CharlesYih','password':'1234560'};
+            $scope.showInfo = function(){
+                return $scope.user.name + '||' + $scope.user.password;
+            }
+        });
+        app.controller('secondCtrl',function($scope){
+            $scope.hobbies = [
+                              {'checked':true,'value':'羽毛球','label':'羽毛球'},
+                              {'checked':false,'value':'乒乓球','label':'乒乓球'},
+                              {'checked':false,'value':'排球','label':'排球'},
+                              {'checked':false,'value':'足球','label':'足球'},
+                              {'checked':false,'value':'篮球','label':'篮球'},
+                              {'checked':true,'value':'游泳','label':'游泳'},
+                              {'checked':true,'value':'跑步','label':'跑步'},
+                              {'checked':true,'value':'跳绳','label':'跳绳'},
+                            ];
+        });
+    }(window);
+</script>
+</body>
+</html>

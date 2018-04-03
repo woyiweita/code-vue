@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="UTF-8" />
+    <title>AngularJS 双向数据绑定</title>
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css" />
+</head>
+<body ng-controller="myCtrl">
+   <p class="alert alert-{{userInfo.color}}">{{userInfo.text}}</p>
+   <div class="row">
+       <div class="col-md-offset-2 col-md-8">
+           <input type="button" class="btn btn-primary" value="info" ng-click="setPrimary()" />
+           <input type="button" class="btn btn-success" value="success" ng-click="setSuccess()" />
+           <input type="button" class="btn btn-warning" value="warning" ng-click="setWarning()" />
+           <input type="button" class="btn btn-danger" value="danger" ng-click="setDanger()" />
+       </div>
+   </div>
+<script type="text/javascript" src="./angularjs/angular.js"></script>
+<script type="text/javascript">
++function(){
+    var myApp = angular.module('myApp',[]);
+    myApp.controller('myCtrl',['$scope',function($scope){
+        $scope.userDefault={
+            color : 'muted',
+            text : '默认'
+        };
+        $scope.userInfo = $scope.userDefault;
+        $scope.setPrimary = function(){
+            $scope.userInfo={
+                color : 'info',
+                text : '陈述'
+            }
+        };
+        $scope.setSuccess = function(){
+            $scope.userInfo={
+                color : 'success',
+                text : '成功'
+            }
+        };
+        $scope.setWarning = function(){
+            $scope.userInfo={
+                color : 'warning',
+                text : '警告'
+            }
+        };
+        $scope.setDanger = function(){
+            $scope.userInfo={
+                color : 'danger',
+                text : '错误'
+            }
+        };
+    }]);
+}();
+</script>
+</body>
+</html>

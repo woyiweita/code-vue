@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="utf-8" />
+    <title>AngularJS 联动菜单编写</title>
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css" />
+</head>
+<body>
+<div class="container">
+ <form action="#" class="form-horizontal" role="form" ng-controller="myCtrl">
+   <div class="form-group">
+     <label for="address" class="col-md-2 control-label">地址</label>
+     <div class="col-md-3">
+       <select name="province" id="province" ng-model="province" class="form-control" ng-options="key as key for (key,value) in division" ng-change="clearOne()">
+         <option value="">省</option>
+       </select>
+     </div>
+     <div class="col-md-3">
+       <select name="city" id="city" ng-model="city" class="form-control" ng-options="key as key for (key,value) in division[province]">
+         <option value="">市</option>
+       </select>
+     </div>
+     <div class="col-md-3">
+       <select name="district" id="district" ng-model="district" class="form-control" ng-options="value as value for value in division[province][city]">
+         <option value="">区</option>
+       </select>
+     </div>
+   </div>
+ </form>
+</div>
+<script type="text/javascript" src="./angularjs/angular.js"></script>
+<script type="text/javascript" src="./script/controllers.js"></script>
+<script type="text/javascript">
+</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="utf-8" />
+    <title>AngularJS 入门</title>
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css" />
+</head>
+<body>
+<div class="container" ng-controller="myCtrl">
+  <p class="text-info">1.在表单中输入字段，在文本中显示</p>
+  <p class="text-danger">需要注意ngApp与ngController的引用</p>
+  <form action="#">
+    <div class="form-group">
+      <label for="name" class="control-label col-md-2">名字</label>
+      <div class="col-md-10">
+        <input type="text" class="form-control" ng-model="name" />
+      </div>
+    </div>
+    <p class="text-primary">您输入的内容是：{{name}}</p>
+    <p class="text-info">2.指令</p>
+    <div class="form-group">
+      <div class="col-md-offset-2 col-md-10" ng-init="userName='Charles Yih'">
+        <input type="text" class="form-control" value="{{userName}}" />
+      </div>
+    </div>
+    <p class="text-primary">My name's <span ng-bind="userName"></span></p>
+    <p class="text-info">3.在HTML中直接应用表达式</p>
+    <p class="text-info">3.1 数字运算</p>
+    <p class="text-primary">5 + 5 = {{5+5}}</p>
+    <p class="text-info">3.2 赋值与字符拼接</p>
+    <div class="form-group">
+      <label for="surname" class="control-label col-md-1">姓氏：</label>
+      <div class="col-md-5">
+        <input type="text" class="form-control" ng-model="surname" placeholder="姓氏" />
+      </div>
+      <label for="names" class="control-label col-md-1">名字：</label>
+      <div class="col-md-5">
+        <input type="text" class="form-control"  ng-model="names" placeholder="名字" />
+      </div>
+    </div>
+    <p class="text-primary">
+      您的名字是：{{surname + names}}
+    </p>
+  </form>
+</div>
+<script type="text/javascript" src="./angularjs/angular.js"></script>
+<script type="text/javascript">
+    var app = angular.module('myApp',[]);
+    app.controller('myCtrl',function($scope){
+      $scope.surname = '张';
+      $scope.names = '潇';
+    });
+</script>
+</body>
+</html>

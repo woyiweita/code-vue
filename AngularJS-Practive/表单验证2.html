@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="UTF-8" />
+    <title>AngularJS 完整的表单验证</title>
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css" />
+</head>
+<body ng-controller="myCtrl">
+   <div class="container">
+    <form class="form-horizontal" name="myForm" ng-submit="formSubmit()" role="form" novalidate>
+      <div class="form-group has-feedback">
+        <label for="email" class="control-label col-md-2">
+          邮箱：
+        </label>
+        <div class="col-md-7">
+          <input type="email" id="myEmail" name="myEmail" require class="form-control" ng-model="user.email" />
+        </div>
+        <div class="col-md-3">
+        <p class="text-primary form-control-static " ng-show="myForm.myEmail.$error.email">请输入正确的邮政编码</p>
+        </div>
+      </div>
+
+    </form>
+
+   </div>
+<script type="text/javascript" src="./angularjs/angular.js"></script>
+<script>
+  +function(){
+    var app=angular.module('myApp',[]);
+    app.controller('myCtrl',['$scope',function($scope){
+      
+
+      $scope.formSubmit = function(){
+        console.log($scope.myForm);
+        console.log(arguments);
+        return false;
+      }
+    }]);
+  }();
+</script>
+</body>
+</html>

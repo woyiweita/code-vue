@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="utf-8" />
+    <title>AngularJS select 选择框</title>
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css" />
+</head>
+<body>
+<div class="container">
+  <h3 class="text-info">使用 ng-options 创建选择框，实现选中默认值和分组</h3>
+ <form action="#" class="form-horizontal" role="form" ng-controller="firstCtrl">
+   <div class="form-group">
+     <label for="ball" class="col-md-2 control-label">球类：</label>
+     <div class="col-md-10">
+       <select name="ball" id="ball" ng-model="ball" class="form-control" ng-options="value.name as value.name group by value.group for value in balls">
+       <option value="">-- 请选择 --</option>
+       </select>
+     </div>
+    </div>
+    <div class="form-group">
+      <p class="alert alert-success">你选择的是：{{ball}}</p>
+    </div>
+  </form>
+  
+</div>
+<script type="text/javascript" src="./angularjs/angular.js"></script>
+<script type="text/javascript">
++function(){
+  var app = angular.module('myApp',[]);
+
+  // model 1 创建选择框
+  app.controller('firstCtrl',function($scope){
+    $scope.balls = [
+          {'name':'足球','selected':false,'group':'球类'},
+          {'name':'手球','selected':false,'group':'球类'},
+          {'name':'网球','selected':false,'group':'球类'},
+          {'name':'篮球','selected':false,'group':'球类'},
+          {'name':'排球','selected':false,'group':'球类'},
+          {'name':'羽毛球','selected':true,'group':'球类'},
+          {'name':'棒球','selected':false,'group':'球类'},
+          {'name':'乒乓球','selected':false,'group':'球类'},
+          {'name':'蛙泳','selected':false,'group':'游泳'},
+          {'name':'花样游泳','selected':false,'group':'游泳'},
+          {'name':'爬泳','selected':false,'group':'游泳'},
+          {'name':'仰泳','selected':false,'group':'游泳'},
+          {'name':'蝶泳','selected':false,'group':'游泳'},
+          {'name':'自由泳','selected':false,'group':'游泳'},
+          {'name':'自由式滑雪','selected':false,'group':'滑雪'},
+          {'name':'越野滑雪','selected':false,'group':'滑雪'},
+          {'name':'跳台滑雪','selected':false,'group':'滑雪'},
+          {'name':'checked','selected':false,'group':'滑雪'},
+          {'name':'北欧两项','selected':false,'group':'滑雪'},
+          {'name':'单板滑雪','selected':false,'group':'滑雪'}
+        ];
+      for(var key in $scope.balls){
+        if($scope.balls[key]['selected']){
+          $scope.ball = $scope.balls[key]['name'];
+        }
+      }
+  });
+
+}();
+</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="">
+<head>
+    <meta charset="utf-8" />
+    <title>AngularJS 指令</title>
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css" />
+</head>
+<body>
+<div class="container">
+  <p class="alert alert-success">指令在之前的例子当中已经使用过了，如表达式实例中的字符串操作，变量的读取等</p>
+  <p class="alert alert-info"><code>ngApp</code> 指定了AngularJS应用程序的根元素，暨AngularJS的应用范围
+  </p>
+  <p class="alert alert-info"><code>ngInit</code> 为AngularJS应用程序定义一个初始值
+  </p>
+  <p class="alert alert-info"><code>ngModel</code>绑定 HTML 元素 到应用程序数据
+    <span class="show text-info">为应用程序数据提供类型验证（number、email、required）。</span>
+    <span class="show text-info">为应用程序数据提供状态（invalid、dirty、touched、error）。</span>
+    <span class="show text-info">为 HTML 元素提供 CSS 类。</span>
+    <span class="show text-info">绑定 HTML 元素到 HTML 表单。</span>
+  </p>
+  <p class="alert alert-info"><code>ngRepeat</code> 遍历集合中的每一项
+  </p>
+  <p class="text-info">实例说明：遍历上一个测试文件中出现的数组</p>
+  <ul class="list-inline" ng-init="myArr=['人之初','性本善','性相近','习相远','苟不教','性乃迁','教之道','贵以专']">
+    <li ng-repeat="x in myArr">
+      {{x}}
+    </li>
+  </ul>
+
+</div>
+<script type="text/javascript" src="./angularjs/angular.js"></script>
+</body>
+</html>
