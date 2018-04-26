@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>声明周期钩子函数</title>
+</head>
+<body>
+	<p>3. beforeMount 在挂载前调用</p>
+	<div id="app">
+		<p>{{message}}</p>
+	</div>
+<script src="../js/vue.js"></script>
+<script>
+(function(){
+	let vm = new Vue({
+		el: '#app',
+		data: {
+			message: '测试'
+		},
+		beforeCreate: function() {
+			console.group("beforeCreate");
+			console.info(this); 
+			console.info(this.message); // => undefined
+			console.groupEnd("beforeCreate");
+			debugger;
+		},
+		created: function() {
+			// 实例初始化
+			// 完成数据绑定
+			console.group("created");
+			console.info(this); // => 如果在控制台输出会造成所有的结果一致，原因对象的引用
+			console.info(this.message); // => '测试' 
+			console.info(this.$el); // => undefined
+			// 这里可以用于从服务端获取数据
+			// 并改变计划内的变量
+			// 此处模拟效果
+			// 因为异步加载
+			// 三秒钟后 message 的值会被改变
+			setTimeout(() => {
+				this.message = '123';
+			},3000); 
+			console.groupEnd("created");
+			debugger;
+		},
+		beforeMount: function() {
+			// 相当于未执行 vm.$mount() 挂载 el 的方法
+			// 页面上仍然显示 {{message}}
+			console.group("beforeMount");
+			console.info(this);
+			console.info(this.message);
+			console.info(this.$el);
+			console.groupEnd("beforeMount");
+			debugger;
+		}
+	});
+})();
+</script>
+</body>
+</html>

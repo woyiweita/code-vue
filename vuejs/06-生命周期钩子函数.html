@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>声明周期钩子函数</title>
+</head>
+<body>
+	<p>6. updated 在数据改变，虚拟 Dom 重新渲染和打补丁之后调用。</p>
+	<p>当钩子被调用的时候，组件的 DOM 将会处于更新状态, 因此你可以在这钩子中执行 DOM 相关操作. 但是，在绝大多数情况下，你应该避免在这钩子中改变状态，因为这有可能会导致死循环。</p>
+	<div id="app">
+		<p>{{message}}</p>
+		<input type="button" value="message change" @click=" message = '123' " />
+	</div>
+<script src="../js/vue.js"></script>
+<script>
+(function(){
+	let vm = new Vue({
+		el: '#app',
+		data: {
+			message: '测试'
+		},
+		beforeCreate: function() {
+			console.group("beforeCreate");
+			console.info(this); 
+			console.info(this.message); // => undefined
+			console.groupEnd("beforeCreate");
+			debugger;
+		},
+		created: function() {
+			// 实例初始化
+			// 完成数据绑定
+			console.group("created");
+			console.info(this); // => 如果在控制台输出会造成所有的结果一致，原因对象的引用
+			console.info(this.message); // => '测试' 
+			console.info(this.$el); // => undefined
+			// 这里可以用于从服务端获取数据
+			// 并改变计划内的变量
+			// 此处模拟效果
+			// 因为异步加载
+			// 三秒钟后 message 的值会被改变
+			// setTimeout(() => {
+			// 	this.message = '123';
+			// },3000); 
+			// 先注释，可能会影响后期的测试效果
+			console.groupEnd("created");
+			debugger;
+		},
+		beforeMount: function() {
+			// 相当于未执行 vm.$mount() 挂载 el 的方法
+			// 页面上仍然显示 {{message}}
+			console.group("beforeMount");
+			console.info(this);
+			console.info(this.message);
+			console.info(this.$el);
+			console.groupEnd("beforeMount");
+			debugger;
+		},
+		mounted: function() {
+			// 完成挂载
+			// 页面上的 {{message}} 已经被替换
+			console.group("mounted");
+			console.info(Object.assign({},this));
+			console.info(this.message);
+			console.info(this.$el);
+			console.groupEnd("mounted");
+			debugger;
+		},
+		beforeUpdate: function() {
+			// 在改变数据时调用
+			// message 的值已经改变
+			// 虚拟DOM还未挂载到页面
+			// 页面还没有产生变化
+			console.group("beforeUpdate");
+			console.info(Object.assign({},this));
+			console.info(this.message);
+			console.info(this.$el);
+			console.groupEnd("beforeUpdate");
+			debugger;
+		},
+		updated: function() {
+			// 完成数据的改变
+			// message 的值已经改变
+			// 虚拟DOM还挂载到页面
+			// 页面产生变化
+			console.group('updated');
+			console.info(this);
+			console.info(this.message);
+			console.info(this.$el);
+			console.groupEnd('updated');
+			debugger;
+		}
+	});
+})();
+</script>
+</body>
+</html>

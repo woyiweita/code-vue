@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>声明周期钩子函数</title>
+</head>
+<body>
+	<p>9. 父子组件间的通信。</p>
+	<p>当钩子被调用的时候，解绑所有指令，移除所有事件监听器，销毁所有的子实例。</p>
+	<div id="app"></div>
+<script src="../js/vue.js"></script>
+<script>
+(function(){
+	// 定义一个全局子组件
+	Vue.component("childs",{
+		name: "childs",
+		template: `<div>
+				<p>{{title}}--这里是子组件的内容</p>
+				<p><input type="text" v-model="messages" @change="inputChange" /></p>
+			</div>`,
+		props:{ // 接收父级传递的参数
+			title:{
+				type: String,
+				default: 'Childs'
+			}
+		},
+		data () {
+			return {
+				messages: 'Hello VUE!'
+			}
+		},
+		methods: {
+			inputChange () {
+				// 通过自定义事件，向父级传递数据
+				this.$emit('update:myChange',this.messages);
+			}
+		}
+    });
+    /**
+     * :myChange.sync="message" 
+     * myChange -- 事件名称
+     * .sync -- 修饰符（子组件向父级传递参数的语法糖）
+     * message -- 父级需要介绍传递值的变量，父级需要设置预定义变量
+    */
+	let vm = new Vue({
+		el: "#app",
+		template: `<div id="my">
+				<p>{{message}}</p>
+				<childs :title="message" :myChange.sync="message"/>
+			</div>`,
+		data: {
+			message: 'Parent'
+		}
+	});
+
+})();
+</script>
+</body>
+</html>

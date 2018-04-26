@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>声明周期钩子函数</title>
+</head>
+<body>
+	<p>1. beforeCreate 在实例初始化之前</p>
+	<div id="app">
+		<p>{{message}}</p>
+	</div>
+<script src="../js/vue.js"></script>
+<script>
+(function(){
+	let vm = new Vue({
+		el: '#app',
+		data: {
+			message: '测试'
+		},
+		beforeCreate: function() {
+			// 实例初始化前
+			// 所有的一切都还没有开始
+			console.group("beforeCreate");
+			console.info(this); 
+			console.info(this.message); // => undefined
+			console.groupEnd("beforeCreate");
+		}
+	});
+})();
+</script>
+</body>
+</html>
