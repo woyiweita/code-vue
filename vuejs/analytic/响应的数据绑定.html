@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue 响应的数据绑定原理</title>
+</head>
+<body>
+    <div id="app">
+        <div id="title"></div>
+        <div id="content"></div>
+    </div>
+    <p>
+        <button id="titleBtn">设置 title 为 "改变了"</button>
+        <button id="contentBtn">设置 content 为 "验证是否生效"</button>
+    </p>
+    <script>
+        
+        
+/*        // 模拟获取放置数据的dom节点
+        let app = document.getElementById('app'),
+            title = app.querySelector('#title'),
+            content = app.querySelector('#content');*/
+        
+        function MyHijack(options){
+            // var self = this;
+            // 模拟获取放置数据的dom节点
+            this.app = document.getElementById('app');
+            this.title = this.app.querySelector('#title'),
+            this.content = this.app.querySelector('#content');
+
+            // 数据劫持
+            this.dataHijacked = function (data){
+                Object.keys(data).forEach((item)=>{
+                    this.defineReactive(data, item, data[item]);
+                });
+            }
+
+            // 将劫持的数据转换成 getter/setter 形式
+            this.defineReactive = function (data, key, value){
+                let self = this;
+                if(this && this[key]){
+                    this[key].innerHTML = value;
+                }
+                Object.defineProperty(data, key, {
+                    get () {
+                        return value;
+                    },
+                    set (newValue) {
+                        // console.info(key);
+                        // console.info(this);
+                        self[key].innerHTML = newValue;
+                        return value = newValue;
+                    }
+                });
+            }
+                    
+            if(!!options && !!options.data){
+                this.dataHijacked(options.data);
+                this.data = options.data;
+            }
+        }
+
+        let obj = {title:'响应的数据绑定',content:'通过Object.definePropety() 进行数据劫持，改成 getter/setter 方式，当数据修改时执行相应的方法'};
+        var mh = new MyHijack({
+                data:obj
+            })
+        console.info(mh);
+        console.info(obj);
+
+        // 点击按钮改变 obj 的值，模拟数据改变
+        titleBtn.onclick = function(){
+            obj.title = "改变了";
+        }
+        contentBtn.onclick = function(){
+            obj.content = "验证是否生效";
+        }
+
+    </script>
+</body>
+</html>
